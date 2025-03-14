@@ -1,15 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { connectToDataBase } from "@/lib/db/db";
 import Bingo from "@/lib/db/models/bingo";
 
-export async function GET(
-  req: Request,
-  param: Promise<{ params: { code: string } }>
-) {
+export async function GET(req: Request, { params }: any) {
   try {
     await connectToDataBase();
 
-    const { params } = await param;
-    const { code } = await params;
+    const code = (await params).code;
     const bingo = await Bingo.findOne({ code });
 
     if (!bingo) {
