@@ -6,7 +6,8 @@ export async function POST(req: Request, { params }: any) {
   try {
     await connectToDataBase();
 
-    const { code } = (await params).code;
+    const { code } = await params;
+
     const bingo = await Bingo.findOne({ code });
 
     if (!bingo) {
